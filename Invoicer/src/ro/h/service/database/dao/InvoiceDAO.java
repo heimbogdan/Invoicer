@@ -1,7 +1,7 @@
 package ro.h.service.database.dao;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SQLQuery;
@@ -10,15 +10,16 @@ import org.hibernate.Transaction;
 
 import ro.h.service.database.connection.DataBaseConnector;
 import ro.h.service.database.entity.Client;
+import ro.h.service.database.entity.Invoice;
 
-public class ClientDAO {
+public class InvoiceDAO {
 
-	private ClientDAO(){
+	private InvoiceDAO(){
 		
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void insert(Client client){
+	public static void insert(Invoice invoice){
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -28,7 +29,7 @@ public class ClientDAO {
 		}
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.insert(client);
+			session.insert(invoice);
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,7 +40,7 @@ public class ClientDAO {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void update(Client client){
+	public static void update(Invoice invoice){
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -49,7 +50,7 @@ public class ClientDAO {
 		}
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.update(client);
+			session.update(invoice);
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +61,7 @@ public class ClientDAO {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void delete(Client client){
+	public static void delete(Invoice invoice){
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -70,7 +71,7 @@ public class ClientDAO {
 		}
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.delete(client);
+			session.delete(invoice);
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,8 +82,8 @@ public class ClientDAO {
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static List<Client> getAll(){
-		List<Client> list = null;
+	public static List<Invoice> getAll(){
+		List<Invoice> list = null;
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -91,8 +92,8 @@ public class ClientDAO {
 			e1.printStackTrace();
 		}
 		try {
-			SQLQuery q4 = session.createSQLQuery("select * from clients");
-			q4.addEntity(Client.class);
+			SQLQuery q4 = session.createSQLQuery("select * from invoice");
+			q4.addEntity(Invoice.class);
 			list = q4.list();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,8 +104,8 @@ public class ClientDAO {
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static Client getById(String clientId){
-		Client client = null;
+	public static Invoice getByNumber(String invNumber){
+		Invoice invoice = null;
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -113,23 +114,23 @@ public class ClientDAO {
 			e1.printStackTrace();
 		}
 		try {
-			SQLQuery q4 = session.createSQLQuery("select * from clients where client_id='" + clientId + "'");
-			q4.addEntity(Client.class);
-			List<Client> list = q4.list();
+			SQLQuery q4 = session.createSQLQuery("select * from invoice where inv_number='" + invNumber + "'");
+			q4.addEntity(Invoice.class);
+			List<Invoice> list = q4.list();
 			if(list != null && !list.isEmpty()){
-				client = list.get(0);
+				invoice = list.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			session.close();
 		}
-		return client;
+		return invoice;
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static List<Client> getByName(String firstName, String lastName){
-		List<Client> list = null;
+	public static List<Invoice> getByDate(Date date){
+		List<Invoice> list = null;
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -138,63 +139,7 @@ public class ClientDAO {
 			e1.printStackTrace();
 		}
 		try {
-			SQLQuery q4 = null;
-			if(firstName!= null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()){
-				q4 = session.createSQLQuery("select * from clients where f_name='" + firstName + 
-						"' and l_name='" + lastName + "'");
-			} else if (firstName!= null && !firstName.isEmpty()){
-				q4 = session.createSQLQuery("select * from clients where f_name='" + firstName + "'");
-			} else if (lastName != null && !lastName.isEmpty()){
-				q4 = session.createSQLQuery("select * from clients where l_name='" + lastName + "'");
-			}
-			q4.addEntity(Client.class);
-			list = q4.list();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		return list;
-	}
-
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static Client getByCnp(BigDecimal cnp){
-		Client client = null;
-		DataBaseConnector conn = DataBaseConnector.getInstance();
-		StatelessSession session = conn.getSession();
-		try {
-			session.connection().setAutoCommit(true);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			SQLQuery q4 = session.createSQLQuery("select * from clients where cnp=" + cnp + "");
-			q4.addEntity(Client.class);
-			List<Client> list = q4.list();
-			if(list != null && !list.isEmpty()){
-				client = list.get(0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		return client;
-	}
-	
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static List<Client> getByPhone(String phone){
-		List<Client> list = null;
-		DataBaseConnector conn = DataBaseConnector.getInstance();
-		StatelessSession session = conn.getSession();
-		try {
-			session.connection().setAutoCommit(true);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			SQLQuery q4 = session.createSQLQuery("select * from clients where phone_no1='" + phone +
-					"' or phone_no2='" + phone + "'");
+			SQLQuery q4 = session.createSQLQuery("select * from invoice where inv_date='" + date + "'");
 			q4.addEntity(Client.class);
 			list = q4.list();
 		} catch (Exception e) {
@@ -206,8 +151,8 @@ public class ClientDAO {
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static List<Client> getByEmail(String email){
-		List<Client> list = null;
+	public static List<Invoice> getByClientId(String clientId){
+		List<Invoice> list = null;
 		DataBaseConnector conn = DataBaseConnector.getInstance();
 		StatelessSession session = conn.getSession();
 		try {
@@ -216,7 +161,30 @@ public class ClientDAO {
 			e1.printStackTrace();
 		}
 		try {
-			SQLQuery q4 = session.createSQLQuery("select * from clients where email='" + email + "'");
+			SQLQuery q4 = session.createSQLQuery("select * from invoice where client_id='" + clientId + "'");
+			q4.addEntity(Client.class);
+			list = q4.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public static List<Invoice> getByClient(Client client){
+		List<Invoice> list = null;
+		DataBaseConnector conn = DataBaseConnector.getInstance();
+		StatelessSession session = conn.getSession();
+		try {
+			session.connection().setAutoCommit(true);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			SQLQuery q4 = session.createSQLQuery("select * from invoice where client_id='" 
+					+ client.getClientId() + "'");
 			q4.addEntity(Client.class);
 			list = q4.list();
 		} catch (Exception e) {
