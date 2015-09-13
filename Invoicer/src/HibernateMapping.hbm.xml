@@ -1,59 +1,67 @@
 <?xml version='1.0' encoding='UTF-8'?>  
 <!DOCTYPE hibernate-mapping SYSTEM "hib_map.dtd">
 <hibernate-mapping>
-	<class name="bh.w2optimize.entity.Component" table="component">
+
+	<class name="ro.h.service.database.entity.Client" table="Clients">
 		<id name="id" column="id">
 			<generator class="native"></generator>
 		</id>
-		<property name="name" column="name" not-null="true" ></property>
-		<property name="code" column="code" unique="true" not-null="true"></property>
-		<property name="elements" column="elements" not-null="true"></property>
-	</class>
-	<class name="bh.w2optimize.entity.GeneralComponent" table="generalcomponent">
-		<id name="id" column="id">
-			<generator class="native"></generator>
-		</id>
-		<property name="name" column="name" not-null="true"></property>
-		<property name="code" column="code" unique="true" not-null="true"></property>
-		<property name="length" column="length" not-null="true"></property>
-		<property name="width" column="width" not-null="true"></property>
-		<property name="height" column="height" not-null="true"></property>
-		<property name="elements" column="elements" not-null="true"></property>
+		<property name="clientId" column="client_id" not-null="true" ></property>
+		<property name="firstName" column="f_name" not-null="true"></property>
+		<property name="lastName" column="l_name" not-null="true"></property>
+		<property name="cnp" column="cnp" not-null="true"></property>
+		<property name="address" column="address" not-null="true"></property>
+		<property name="phoneNo1" column="phone_no1" not-null="true"></property>
+		<property name="phoneNo2" column="phone_no2"></property>
+		<property name="email" column="email"></property>
 	</class>
 	
-	
-	<class name="bh.w2optimize.entity.WoodBoard" table="woodboard">
+	<class name="ro.h.service.database.entity.Invoice" table="Invoice">
 		<id name="id" column="id">
 			<generator class="native"></generator>
 		</id>
-		<property name="code" column="code" unique="true" not-null="true"></property>
-		<property name="name" column="name" not-null="true"></property>
-		<property name="material" column="material" not-null="true"></property>
-		<property name="length" column="length"></property>
-		<property name="width" column="width" not-null="true"></property>
-		<property name="price" column="price" not-null="true"></property>
+		<property name="invNumber" column="inv_number" not-null="true" ></property>
+		<property name="invDate" column="inv_date" not-null="true"></property>
+		<property name="prodList" column="prod_list" not-null="true"></property>
+		<property name="clientId" column="client_id" not-null="true"></property>
+		<property name="deliveryAddr" column="delivery_addr"></property>
+		<property name="servReq" column="serv_req"></property>
 	</class>
-	<class name="bh.w2optimize.entity.WoodBoardPice" table="woodboardpice">
+	
+	<class name="ro.h.service.database.entity.Product" table="Products">
 		<id name="id" column="id">
 			<generator class="native"></generator>
 		</id>
-		<property name="code" column="code" not-null="true"></property>
-		<property name="name" column="name" not-null="true"></property>
-		<property name="material" column="material" not-null="true"></property>
-		<property name="length" column="length" not-null="true"></property>
-		<property name="width" column="width" not-null="true"></property>
+		<property name="prodId" column="prod_id" not-null="true" ></property>
+		<property name="prodDesc" column="prod_desc" not-null="true"></property>
+		<property name="prodOpt" column="prod_opt"></property>
 		<property name="price" column="price" not-null="true"></property>
-		<property name="number" column="number" not-null="true"></property>
+		<property name="compList" column="comp_list"></property>
+	</class>
+	
+	<class name="ro.h.service.database.entity.ProductComponent" table="Prod_Components">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="compId" column="comp_id" not-null="true" ></property>
+		<property name="compDesc" column="comp_desc" not-null="true"></property>
+	</class>
+	
+	<class name="ro.h.service.database.entity.Service" table="Services">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="servCode" column="serv_code" not-null="true" ></property>
+		<property name="servName" column="serv_name" not-null="true"></property>
+		<property name="priceType" column="price_type" not-null="true"></property>
+		<property name="priceId" column="price_id" not-null="true"></property>
+	</class>
+	
+	<class name="ro.h.service.database.entity.ServicePrice" table="Service_Price">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="servValue" column="serv_value" not-null="true" ></property>
+		<property name="servPrice" column="serv_price" not-null="true"></property>
 	</class>
 </hibernate-mapping>
-
-<!-- De scos accessory 
-	<class name="bh.w2optimize.entity.Accessory" table="accessory">
-		<id name="id">
-			<generator class="native"></generator>
-		</id>
-		<property name="code" column="code" unique="true" not-null="true"></property>
-		<property name="name" column="name" not-null="true"></property>
-		<property name="price" column="price" not-null="true"></property>
-		<property name="number" column="number" not-null="true"></property>
-	</class> -->

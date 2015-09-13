@@ -6,8 +6,8 @@ import java.util.Arrays;
 public class ServicePrice {
 
 	private int id;
-	private BigDecimal[] ServValue;
-	private BigDecimal[] ServPrice;
+	private BigDecimal[] servValue;
+	private BigDecimal[] servPrice;
 	
 	public int getId() {
 		return id;
@@ -16,22 +16,22 @@ public class ServicePrice {
 		this.id = id;
 	}
 	public BigDecimal[] getServValue() {
-		return ServValue;
+		return servValue;
 	}
 	public void setServValue(BigDecimal[] servValue) {
-		ServValue = servValue;
+		this.servValue = servValue;
 	}
 	public BigDecimal[] getServPrice() {
-		return ServPrice;
+		return servPrice;
 	}
 	public void setServPrice(BigDecimal[] servPrice) {
-		ServPrice = servPrice;
+		this.servPrice = servPrice;
 	}
 	
 	public ServicePrice(BigDecimal[] servValue, BigDecimal[] servPrice) {
 		super();
-		ServValue = servValue;
-		ServPrice = servPrice;
+		this.servValue = servValue;
+		this.servPrice = servPrice;
 	}
 	
 	public ServicePrice(){
@@ -40,8 +40,8 @@ public class ServicePrice {
 	
 	@Override
 	public String toString() {
-		return "ServicePrice [id=" + id + ", ServValue=" + Arrays.toString(ServValue) + ", ServPrice="
-				+ Arrays.toString(ServPrice) + "]";
+		return "ServicePrice [id=" + id + ", ServValue=" + Arrays.toString(servValue) + ", ServPrice="
+				+ Arrays.toString(servPrice) + "]";
 	}
 	
 	

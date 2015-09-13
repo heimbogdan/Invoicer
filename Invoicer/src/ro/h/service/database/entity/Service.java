@@ -5,7 +5,7 @@ public class Service {
 	private int id;
 	private String servCode;
 	private String servName;
-	private String servType;
+	private String priceType;
 	private int priceId;
 	
 	public int getId() {
@@ -26,11 +26,11 @@ public class Service {
 	public void setServName(String servName) {
 		this.servName = servName;
 	}
-	public String getServType() {
-		return servType;
+	public String getPriceType() {
+		return priceType;
 	}
-	public void setServType(String servType) {
-		this.servType = servType;
+	public void setPriceType(String priceType) {
+		this.priceType = priceType;
 	}
 	public int getPriceId() {
 		return priceId;
@@ -39,11 +39,11 @@ public class Service {
 		this.priceId = priceId;
 	}
 	
-	public Service(String servCode, String servName, String servType, int priceId) {
+	public Service(String servCode, String servName, String priceType, int priceId) {
 		super();
 		this.servCode = servCode;
 		this.servName = servName;
-		this.servType = servType;
+		this.priceType = priceType;
 		this.priceId = priceId;
 	}
 	
@@ -53,7 +53,7 @@ public class Service {
 	
 	@Override
 	public String toString() {
-		return "Service [id=" + id + ", servCode=" + servCode + ", servName=" + servName + ", servType=" + servType
+		return "Service [id=" + id + ", servCode=" + servCode + ", servName=" + servName + ", priceType=" + priceType
 				+ ", priceId=" + priceId + "]";
 	}
 	
